@@ -1,0 +1,18 @@
+#!/bin/bash
+
+## Opens an xterm in the selected VM, executes arbitrary command, exits
+## Similary to the 'Run Command in Qube' option in Qube Manager
+
+unset PROMPT_COMMAND
+
+[ -e /home/user/.deletez ] && rm /home/user/.deletez
+
+xterm -fa true -fs 11 -T "Run_command_in $1" -e bash -c \
+	'i3-msg -q floating enable, move position center ; read -p "Enter Command:~$ " m ; echo "$m" > /home/user/.deletez ; exit ;'
+
+user_command=$(cat /home/user/.deletez)
+
+qvm-run -q "$1" "bash -c '$user_command'" &disown
+
+rm /home/user/.deletez 
+

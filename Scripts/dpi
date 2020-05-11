@@ -1,0 +1,30 @@
+#/bin/bash
+
+
+os=$(grep "edora" /etc/os-release)
+
+
+if [ -n "$1" ]; then
+	dpi="$1"
+else
+	if [ -n "$os" ]; then
+		read -p "Enter Scaling Factor (0.5 - 3.0): " dpi
+	else	
+		read -p "Enter Scaling Factor (Recommend 96 - 288): " dpi
+	fi
+fi
+
+
+if [ -n "$os" ]; then
+
+	gsettings set org.gnome.desktop.interface text-scaling-factor $dpi
+	exit 0
+
+else
+	touch /home/user/.Xresources
+	xres=$(grep "Xft.dpi" /home/user/.Xresources)
+
+	[ -n "$xres" ] && sed -i "/Xft.dpi/ d" /home/user/.Xresources
+	echo "Xft.dpi:  $dpi" >> /home/user/.Xresources
+	xrdb -merge /home/user/.Xresources
+fi				

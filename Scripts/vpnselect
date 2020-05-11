@@ -1,0 +1,17 @@
+#!/bin/sh
+
+## Script to list all VPN config files, read user selection, and symlink selection
+
+conf="/rw/config/vpn/confiles/"
+
+ls -1 $conf | cat -n
+
+read -p "Enter conf file_num:" num
+
+file="${conf}`ls -1 $conf | sed -n ${num}p`"
+
+rm /rw/config/vpn/vpn-client.conf
+ln -s $file /rw/config/vpn/vpn-client.conf
+
+systemctl restart qubes-vpn-handler.service
+exit 0
