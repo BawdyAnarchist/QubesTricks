@@ -9,9 +9,9 @@ Since we're dealing with multiple VMs, a tiling window manager designed around q
 
 Qubes is heavy on system resources, so you should get a performance boost vs xfce.  
 
-On Qubes 4.0; i3wm resolved issues I had with full screen video playback on my hidpi screen. 
+On Qubes 4.0; i3wm resolved issues I had with full screen video playback on my hi dpi screen. 
 
-You'll also get some hacker cred with normies. Your screen will look cool, and your snooping girlfriend won't know how to navegate your system!  Just kidding. No one running Qubes+i3wm has a girlfriend.
+You'll get some hacker cred with normies. Your screen will look cool. And your snooping girlfriend won't be able to navegate your system!  Just kidding. No one running Qubes+i3 has a girlfriend.
 
 
 ### System Setup Ideas
@@ -44,30 +44,31 @@ Make a clone of the Debian template, call it: deb-11-full
 FF is open source spyware, now funded primarily by google. Every new release has new default-on spyware settings that have to be manually turned off, buried in about:config. Check out ghacks user.js for help in hardening FF. Also, umatrix is a powerful addon. 
 \</RANT\>
 
-Colorcoding.  I prefer to colorcode based on both the security and anonymity of the VM in question. Gray for templates, red for system level VMs, green for publicly known identities, and purple for anon/Tor. 
+Colorcoding.  I prefer to colorcode based on a combination of purpose, security level, and anonymity of the VM in question. Gray for templates, red for system level VMs, black is secure offline VMs, green for publicly known identities, and purple for anon/Tor. 
 
-I also rename my disposable and Whonix VMs, as you will notice if you use the i3gen.conf (i3 script). 
+I also rename my disposable and Whonix VMs, as you will notice if you use i3gen setup.
 
 
 ### VPN Qube Setup
 
 Wireguard is a superior VPN implementation, and now available in the Linux kernel.
 
-I recommend using this repo/guide for configuring VPN Qubes:
+I recommend using this repo/guide for configuring VPN Qubes:    
 https://github.com/hkbakke/qubes-wireguard
 
      
 ### Quirks and Gotchas 
 
-Inside your i3wm config, remove `-d` options from `i3lock`
+Inside your i3wm config, remove `-d` options from `i3lock`   
 It's deprecated, and might've been causing screen freezes.
 
 Sometimes a pop-up window will be blank.  Toggling fullscreen usually fixes that
 
-**Touchpad:** I prefer to enable tapping (instead of click-pressing). Make persistent:
-`vi /usr/share/X11/xorg.conf.d/60-libinput.conf`
+**Touchpad:** I prefer to enable tapping (instead of click-pressing). Make persistent:   
 
 ```
+vi /usr/share/X11/xorg.conf.d/60-libinput.conf
+
 Section "InputClass"  
 	Identifier "libinput touchpad catchall"  
 	MatchIsTouchpad "on"  
@@ -79,9 +80,9 @@ EndSection
 ```
 
 **DPMS**: Manages standby/suspend. It can interrupt lengthy operations, so recommend
-toggling if you're doing a backup/restore, or copying large amounts of data.
-`xset q`
-`xset -dpms` 
+toggling if you're doing a backup/restore, or copying large amounts of data.    
+`xset q`    
+`xset -dpms`     
 `xset dpms x y z`  , where x y z are the time in minutes for: standby suspend shutdown
 
 
