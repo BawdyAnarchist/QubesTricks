@@ -6,7 +6,7 @@ Review the config_mods file, and merge it with your i3 config. There's extra wor
 
 Qubes + i3 is a great combo. However, there's a problem -- you're likely to run out of keyboard space for key bindings, with numerous VM/command pairs. You can hobble along with the D-menu ... Or you can use i3gen to auto-generate these pairs.  Edit `i3gen.conf` to specify VM/command pairs, then run i3gen.sh to apply to your main config. 
 
-*!!IMPORTANT!! i3gen.sh will append at the bottom of your config. DO NOT put any configs below the auto-generated lines. Place them *ABOVE* these lines, or they'll end up getting deleted. 
+*!!IMPORTANT!! i3gen.sh will append at the bottom of your config. DO NOT put any configs below the auto-generated lines. Place them *ABOVE* these lines, or they'll end up getting deleted.*
 
 #### How It Works
 
@@ -22,7 +22,13 @@ There's a slight nuance with VM groupings. I had too many VMs with similar names
 
 ### qubes-i3-scripts
 
-These scripts are an expansion on `/usr/bin/qubes-i3-sensible-terminal` . They simplify the launch of generic programs common to all VMs (described below). In dom0, copy them to: /usr/local/bin/
+These scripts are an expansion on `/usr/bin/qubes-i3-sensible-terminal` . They simplify the launch of generic programs common to all VMs. Described below. 
+
+They also need to be copied to dom0, which requires a special command, since files can't be directly copied to dom0: 
+
+``````````````` 
+qvm-run --pass-io <VM-source> 'cat /path/to/qubes-i3-user-terminal' > /usr/local/bin/qubes-i3-user-terminal
+``````````````` 
 
 #### qubes-i3-user-terminal
 Launches a terminal in the target VM.  It launches the first discovered terminal emulator, in the order contained in the script's 'for loop'.
