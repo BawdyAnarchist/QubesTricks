@@ -11,9 +11,7 @@ save=$(printf "%b" "/home/user/" "${winNAME}" "${count}.png")
 
 
 ## Check if filename already exists. If so increment number until unique name found.
-
 while [ -e "$save" ]; do
-
 	count=$(( $count + 1 ))
 	save=$(printf "%b" "/home/user/" "${winNAME}" "${count}.png") 
 done

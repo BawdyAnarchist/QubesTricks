@@ -1,0 +1,88 @@
+#!/bin/sh
+
+while getopts hl o ; do
+	case $o in
+		h) help="true" ;;
+		l) list="true" ;;
+	esac
+done
+
+dpi="$1"
+os=$(head -1 /etc/os-release | grep "edora")
+xresources=$(grep "Xft.dpi" /home/user/.Xresources)
+
+usage() {
+	echo "dpi: Changes the dpi (or scaling factor) inside of a VM."
+	echo ""
+	echo "Usage: dpi [-h|-l] <value>"
+	echo "   -h: (h)elp. Show this help message"
+	echo "   -l: (l)ist. Show the current DPI settings"
+	echo "   If <value> is not specified, user is prompted for input"
+	echo ""
+	echo "Fedora VMs use a text-scaling-factor between 0.5 and 3,"
+	echo "applied immediately to all windows."
+	echo ""
+	echo "Debian VMs use native .Xresources DPI, default of 96, and"
+	echo "requires re-launching windows for changes to take effect"
+	exit 0
+}
+
+checks() {
+	if [ -n "$help" ] ; then
+		usage
+	fi
+
+	if [ -z "$dpi" ] ; then
+		getdpi
+	fi
+
+	# If os-release is showing Fedora, then use scaling-factor instead of xrdb
+	if [ -n "$os" ] ; then 
+		dpi_current=$(gsettings get org.gnome.desktop.interface text-scaling-factor)
+		
+		# If list option was selected, show settings and exit 
+		if [ -n "$list" ] ; then
+			printf "%b" "\nCurrent scaling factor is:  $dpi_current \n"
+			exit 0
+		fi
+
+	else	
+		dpi_current=$(xrdb -query | grep "Xft.dpi" | sed "s/Xft.dpi:[[:blank:]]*//")
+		if [ -n "$list" ] ; then
+			printf "%b" "\nCurrent xrdb dpi is:  $dpi_current \n" 
+			exit 0
+		fi
+	fi
+}
+
+getdpi() {
+	if [ -n "$os" ] ; then 
+		printf "%b" "\nCurrent scaling factor is:  $dpi_current" \
+				"\nEnter new scaling Factor (0.5 - 3.0): "
+		read dpi
+	else	
+		printf "%b" "\nCurrent xrdb dpi is:  $dpi_current" \
+				"\nEnter Scaling Factor (Recommend 96 - 288): "
+		read dpi
+	fi
+}
+
+
+main() {
+	if [ -n "$os" ]; then
+		gsettings set org.gnome.desktop.interface text-scaling-factor $dpi
+
+	else
+		touch /home/user/.Xresources
+		
+		# If dpi line already exists, delete it
+		[ -n "$xres" ] && sed -i "/Xft.dpi/ d" /home/user/.Xresources
+		echo "Xft.dpi:  $dpi" >> /home/user/.Xresources
+	
+		# Apply new settings
+		xrdb -merge /home/user/.Xresources
+	fi				
+}
+
+checks
+main

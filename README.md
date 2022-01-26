@@ -1,9 +1,8 @@
-**My respository of scripts, tricks, and tips regarding Qubes-OS.**  
+Welcome to my repo for some useful scripts and personal notes on Qubes. 
 
-After spending a few lazy years newf#$!ng LinuxMint, and then a few more as an impotent GUI-only user of Qubes, I decided enough was enough.  I even shelled out (too much) cash on a Monero pump to buy a shiny new Purism 15v4, and set out to better understand the OS and improve my security, from the "BIOS" up (Coreboot actually).  
+Start with the Qubes directory for some ideas on system configuration, tips, and a couple scripts. 
 
-Fast forward 9 months, I'm now being considered for entry into the elite cadre of "Qubes Power Users", a prestigous organization which I just made up.  Well, at any rate, I did learn a few things that I think are useful, specficially regarding the Pursim Laptop 15v4; as well as writing some pretty sweet scripts, particularly for those who smartly run i3 Window Manager.
-
-If you're a newb, read the docs, starting with 'Optimal\_Qubes\_Setup'  
-If you're a script kiddie like me, install i3 immediately.  Steal my shit  
-If you're a pro, cruel tutelage please.  
+Next, if you're taking the time to learn/run Qubes, you'll be well served by running i3wm instead of xfce. The workflow is better/faster, and it just makes sense, given the multiple VMs you're dealing with.    
+- There's a script for auto-generating key bindings for all possible VM/command pairs     
+- Whether you're new to Qubes + i3 or a veteran, you'll find this script a big timesaver   
+   - If you're a *"thank god for the d-menu"* kind of person; you definitely need these scripts.

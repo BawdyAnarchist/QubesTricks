@@ -5,8 +5,8 @@
 ##  Enter with no keypress shutsdown template, any other key + Enter stays in terminal
 
 which_distro='if [ -n "`grep -i debian /etc/os-release`" ]; then 
-	sudo apt update && sudo apt upgrade; else 
-	sudo dnf update && sudo dnf upgrade; fi'
+	sudo apt update && sudo apt -y upgrade; else 
+	sudo dnf update && sudo dnf -y upgrade; fi'
 
 shutdown='read -p "Enter to close, any other key to stay" r ; echo "$r"; if [ -z "$r" ]; then sudo shutdown now; fi'
 

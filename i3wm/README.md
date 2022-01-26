@@ -1,14 +1,41 @@
-## LET ME SAVE YOU LOADS OF TIME/EFFORT ON i3 KEYBINDINGS
+### config_mods
 
-Whether you're a brand new i3 user, or veteran, you're likely to find this part of my repo super useful.  It enables you to quickly/easily bindsym every combination of VM-command you might ever want.  You will find two documentation files in this directory: 
+Review the config_mods file, and merge it with your i3 config. There's extra workspaces, expanded key bindings, and a couple fixes/improvements (commented). 
 
-**i3TIPS.md**  
-Provides some good config options to add, things you'll probably want from i3, as well as pointing out a bug or two.  It's better to do this early in a fresh install, as navigating the OS becomes easier from the get-go.  If you're new to i3, definitely give this a read.
+### i3gen
 
-**HOWTO.md**  
-Documentation on how to use the i3gen script.  It's pretty awesome, especially if used in conjuction with some of my other i3-inspired scripts.  Cool shit like a script+keybind to take a screenshot of a selected window *from within the VM itself, and save it there.*  Cool shit like *autogeneration* of ALL your VM specific keybinds, with one simple setup file.  
+Qubes + i3 is a great combo. However, there's a problem -- you're likely to run out of keyboard space for key bindings, with numerous VM/command pairs. You can hobble along with the D-menu ... Or you can use i3gen to auto-generate these pairs.  Edit `i3gen.conf` to specify VM/command pairs, then run i3gen.sh to apply to your main config. 
 
-For example, I have 32 VMs, each with 5-15 commands, requiring 500 extra lines in the i3 config to fully map out all mode-keybind-VM-command combinations.  Imagine trying to hand crank that, much less add new VMs and commands, or god forbid you want to re-arrange keybinds.  This script enables all of that, practically on the fly.  
+*!!IMPORTANT!! i3gen.sh will append at the bottom of your config. DO NOT put any configs below the auto-generated lines. Place them *ABOVE* these lines, or they'll end up getting deleted. 
 
-&nbsp;&nbsp;&nbsp;&nbsp;If you're a *"thank god for the d-menu"* kind of person, you REALLY need this script.
- 
+#### How It Works
+
+1. In `i3gen.conf`, specify a $mod+key by which you will enter VM-Select mode.
+2. Inside VM-Select mode, choose a VM in which to run a command. 
+3. This takes you to the VM-Command mode, where you make a final command selection.
+4. dom0 then uses qvm-run to execute the command inside the VM
+
+I recommend using the number keys for commands common to all VMs: start, stop, restart, xterm, popup command, GUI file manager, and others. 
+
+There's a slight nuance with VM groupings. I had too many VMs with similar names, and couldn't fit them all in the VM-Select mode. So there's an intermediate mode, as defined by the column: GROUP. In the VM-Command mode, you'll first select the GROUP, and *then* you select the VM. If you don't want a VM to be under a group, put "-" or "none" in the GROUP column.
+
+
+### qubes-i3-scripts
+
+These scripts are an expansion on `/usr/bin/qubes-i3-sensible-terminal` . They simplify the launch of generic programs common to all VMs (described below). In dom0, copy them to: /usr/local/bin/
+
+#### qubes-i3-user-terminal
+Launches a terminal in the target VM.  It launches the first discovered terminal emulator, in the order contained in the script's 'for loop'.
+
+#### qubes-i3-user-browser
+Launches web browser in the target VM.  It launches the first discovered web browser, in the order contained in the script's 'for loop'.
+
+#### qubes-i3-user-filemgr
+Launches file manager in the target VM.  It launches the first discovered file manager, in the order contained in the script's 'for loop'.
+
+#### qubes-i3-user-command
+Basically the same as `Run command in qube` , but designed for use as an i3 quick key. An popup xterm window accepts the command, then closes. Useful for changing DPI, or running a command inside a VM that isn't in the D-menu.
+
+#### qubes-i3-user-update
+Launches an xterm window in the VM, and runs the standard update command, depending on which template OS it is.
+
