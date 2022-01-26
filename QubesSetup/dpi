@@ -11,6 +11,13 @@ dpi="$1"
 os=$(head -1 /etc/os-release | grep "edora")
 xresources=$(grep "Xft.dpi" /home/user/.Xresources)
 
+# If OS is Fedora based, use gsettings 
+if [ -n "$os" ] ; then
+	dpi_current=$(gsettings get org.gnome.desktop.interface text-scaling-factor)
+else
+	dpi_current=$(xrdb -query | grep "Xft.dpi" | sed "s/Xft.dpi:[[:blank:]]*//")
+fi
+
 usage() {
 	echo "dpi: Changes the dpi (or scaling factor) inside of a VM."
 	echo ""
@@ -27,34 +34,6 @@ usage() {
 	exit 0
 }
 
-checks() {
-	if [ -n "$help" ] ; then
-		usage
-	fi
-
-	if [ -z "$dpi" ] ; then
-		getdpi
-	fi
-
-	# If os-release is showing Fedora, then use scaling-factor instead of xrdb
-	if [ -n "$os" ] ; then 
-		dpi_current=$(gsettings get org.gnome.desktop.interface text-scaling-factor)
-		
-		# If list option was selected, show settings and exit 
-		if [ -n "$list" ] ; then
-			printf "%b" "\nCurrent scaling factor is:  $dpi_current \n"
-			exit 0
-		fi
-
-	else	
-		dpi_current=$(xrdb -query | grep "Xft.dpi" | sed "s/Xft.dpi:[[:blank:]]*//")
-		if [ -n "$list" ] ; then
-			printf "%b" "\nCurrent xrdb dpi is:  $dpi_current \n" 
-			exit 0
-		fi
-	fi
-}
-
 getdpi() {
 	if [ -n "$os" ] ; then 
 		printf "%b" "\nCurrent scaling factor is:  $dpi_current" \
@@ -68,7 +47,7 @@ getdpi() {
 }
 
 
-main() {
+modify_dpi() {
 	if [ -n "$os" ]; then
 		gsettings set org.gnome.desktop.interface text-scaling-factor $dpi
 
@@ -76,7 +55,7 @@ main() {
 		touch /home/user/.Xresources
 		
 		# If dpi line already exists, delete it
-		[ -n "$xres" ] && sed -i "/Xft.dpi/ d" /home/user/.Xresources
+		[ -n "$xresources" ] && sed -i "/Xft.dpi/ d" /home/user/.Xresources
 		echo "Xft.dpi:  $dpi" >> /home/user/.Xresources
 	
 		# Apply new settings
@@ -84,5 +63,20 @@ main() {
 	fi				
 }
 
-checks
+main() {
+	if [ -n "$help" ] ; then
+		usage
+
+	elif [ -n "$list" ] ; then
+		printf "%b" "\nCurrent setting is:  $dpi_current \n"
+		exit 0
+
+	elif [ -z "$dpi" ] ; then
+		getdpi
+	fi
+
+	modify_dpi
+}
+
+
 main
