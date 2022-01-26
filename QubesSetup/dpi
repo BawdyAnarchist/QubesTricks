@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# Copy this script to the template VMs, under /usr/bin
+
 while getopts hl o ; do
 	case $o in
 		h) help="true" ;;
