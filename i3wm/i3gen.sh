@@ -9,13 +9,14 @@ wc=$(echo "$vmlist" | wc -l)
 initialize_config() {
 	## Initialize config by deleting old lines, creating new 
 	sed -i '/i3gen AUTO-GENERATED KEY BINDINGS/,$d' "$config"
-	printf "%b" "##  Edit i3gen.conf, and run i3gen.sh to make/apply changes  ##\n\n\n"  >> "$config"
+	printf "%b" "##  i3gen AUTO-GENERATED KEY BINDINGS  ##\n" >> "$config"
+	printf "%b" "##  Edit i3gen.conf, and run i3gen.sh to make/apply changes  ##\n\n"  >> "$config"
 }
 
 qubeselect() {
 	## Creates the first level binding mode
-	printf "%b" "##  FIRST LEVEL BINDING MODE  ##" "\n"  >> "$config"
-	printf "%b" "\n" "$qubeselect" "\n\n"  >> "$config"
+	printf "%b" "##  FIRST LEVEL BINDING MODE  ##" >> "$config"
+	printf "%b" "$qubeselect" "\n\n"  >> "$config"
 	printf "%b" "mode \"qubeselect\" {"  >>  "$config"
 
 	for ((loop=1; loop <= "$wc"; loop++)); do 		
