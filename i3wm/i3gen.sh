@@ -15,9 +15,9 @@ initialize_config() {
 
 qubeselect() {
 	## Creates the first level binding mode
-	printf "%b" "##  FIRST LEVEL BINDING MODE  ##" >> "$config"
+	printf "%b" "##  FIRST LEVEL BINDING MODE  ##\n\n" >> "$config"
 	printf "%b" "$qubeselect" "\n\n"  >> "$config"
-	printf "%b" "mode \"qubeselect\" {"  >>  "$config"
+	printf "%b" "mode \"VM-Select\" {"  >>  "$config"
 
 	for ((loop=1; loop <= "$wc"; loop++)); do 		
 		local vm=$(sed -n ${loop}p <<<"$vmlist" | awk '{print $1}')
