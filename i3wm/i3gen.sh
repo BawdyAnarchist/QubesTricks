@@ -3,7 +3,7 @@
 config='/home/user/.config/i3/config'
 vmlist=$(sed '/END OF VM LIST/, $d' i3gen.conf | sed '/^$/d' | grep -v "#")
 dom0_commands=$(sed '1,/END OF VM LIST/d' i3gen.conf | sed '/^$/d' | grep -v "#")
-qubeselect=$(grep -oe '^bindsym [^(\s|\t)]* mode "qubeselect"' i3gen.conf)
+qubeselect=$(grep -oe '^bindsym [^(\s|\t)]* mode "VM-Select"' i3gen.conf)
 wc=$(echo "$vmlist" | wc -l)
 
 initialize_config() {
