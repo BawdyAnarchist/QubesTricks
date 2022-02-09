@@ -1,6 +1,7 @@
 #!/bin/sh
 
 # Copy this script to the template VMs under /usr/bin
+# Remember to make it executable
 
 # User selects window, screenshot saved in home folder of VM
 
