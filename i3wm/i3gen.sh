@@ -79,8 +79,8 @@ vmgen() {
 
 		## Searches for alias, and replaces with full command
 		for p in $progs; do
-			sym=$(grep -P "^${p}" <<<"$dom0_commands" | awk '{print $2}')
-			passed_command=$(grep -P "^${p}" <<<"$dom0_commands" \
+			sym=$(grep -P "^${p} " <<<"$dom0_commands" | awk '{print $2}')
+			passed_command=$(grep -P "^${p} " <<<"$dom0_commands" \
 					| sed 's,^[^( |\t)]*[ |\t]*[^( |\t)]*[ |\t]*,,' | sed "s,\$vm,${vm},")
 			if [ -n "$sym" ]; then	
 				printf "%b" "\n\t bindsym $sym exec $passed_command , mode \"default\"" \
