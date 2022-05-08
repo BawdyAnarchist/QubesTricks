@@ -33,7 +33,7 @@ Make a clone of the Fedora template, call it:  fed-34-full
 
 Make a clone of the Debian template, call it: deb-11-full 
 - REMOVE GNOME ENTIRELY!     
-   - `sudo apt-get remove gnome`	  
+   - `sudo apt-get remove gnome*`	  
 - Install the full KDE desktop suite, instead    
    - `sudo aptitude install ~t^desktop$ ~t^kde-desktop$`     
    - `sudo apt-get install gnome-icon-theme`    
@@ -63,6 +63,18 @@ Inside your i3wm config, remove `-d` options from `i3lock`
 It's deprecated, and might've been causing screen freezes.
 
 Sometimes a pop-up window will be blank.  Toggling fullscreen usually fixes that
+
+**Screen Tearing:** After Qubes 4.1, you might see screen tearing on Intel graphics when typing in terminals or in Qube Manager. Create this file in dom0
+
+```
+vi /etc/X11/xorg.conf.d/80-intelgraphics.conf
+
+Section "Device"
+	Identifier "Intel Graphics"
+	Driver "intel"
+	Option "TearFree" "true"
+EndSection
+```
 
 **Touchpad:** I prefer to enable tapping (instead of click-pressing). Make persistent:   
 
