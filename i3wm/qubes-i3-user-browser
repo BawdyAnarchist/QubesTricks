@@ -1,7 +1,0 @@
-#!/bin/bash
-
-##  Selects browser in order shown below
-
-run_browser='for f in torbrowser firefox; do command -v "$f" > /dev/null 2>&1 && exec "$f"; done'
-
-qvm-run -q "$1" "bash -c '$run_browser'" &disown

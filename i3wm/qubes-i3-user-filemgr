@@ -2,6 +2,6 @@
 
 ## Selects file manager application, preference in order listed here
 
-run_filemgr='for f in dolphin nautilus; do command -v "$f" > /dev/null 2>&1 && exec "$f"; done'
+run_filemgr='for f in nautilus dolphin; do command -v "$f" > /dev/null 2>&1 && exec "$f"; done'
 
 qvm-run -q "$1" "bash -c '$run_filemgr'" &disown
