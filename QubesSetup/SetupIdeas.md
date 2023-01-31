@@ -2,81 +2,79 @@ This file doubles as my setup recommendations, and personal notes for things to 
 
 My hardware:  Pursim Laptop 15v4  
 
+### General Notes and Advice
 
-### i3wm Shilling - Reasons to Switch to i3
+Here's a copy of the PGP fingerprint for the Qubes Master Signing Key. Never hurts to ~~double~~ triple check it, from multiple devices over multiple networks on multiple websites.    
+- 427F 11FD 0FAA 4B08 0123  F01C DDFA 1A3E 3687 9494
 
-Since we're dealing with multiple VMs, a tiling window manager designed around quick keys just makes sense. Combined with the i3gen script, should improve your workflow. 
+Always experiment inside a DVM for packages, setup, and learning, *BEFORE* modifying a template.
 
-Qubes is heavy on system resources, so you should get a performance boost vs xfce.  
-
-On Qubes 4.0; i3wm resolved issues I had with full screen video playback on my hi dpi screen. 
-
-You'll get some hacker cred with normies. Your screen will look cool. And your snooping girlfriend won't be able to navegate your system!  Just kidding. No one running Qubes+i3 has a girlfriend.
-
-
-### System Setup Ideas
-
-Always experiment inside a DVM for packages, setup, and learning.
-
-DPI can be tricky. Start with dom0 DPI at: 
+If you have a HiDPI screen, you can change the DPI setting here:
 - Settings Manager > Appearance > Fonts > Custom DPI setting    
 
-Then copy the `dpi` script to all of your template VMs under:  /usr/bin/
-- Fedora VMs change dpi immediately; Debian VMs must re-launch the app/window
-- Run the command: `dpi -h` for more details
+Graphical apps can often be buggy. I find there are often differences between Gnome/GTK and KDE/Qt. Try switching between these two, using separate templates, if/when you have trouble. 
 
-GUI apps can sometimes be buggy; but often can be solved by switching between Gnome/GTK and Qt/KDE. So I recommend 2 separate templates:
+### System Setup 
 
-Make a clone of the Fedora template, call it:  fed-34-full
-- Install GTK and everything gnome, *but don't install Qt/KDE pkgs*
-- Add all your personal extra pkgs
+Maintain fedora-36 as a pristine, unmodified template. Run all your system VMs off of it, and keep the DVM template for it as well. 
 
-Make a clone of the Debian template, call it: deb-11-full 
-- REMOVE GNOME ENTIRELY!     
-   - `sudo apt-get remove gnome*`	  
+Get your VPN up and running. You should prefer Wireguard, if for no other reason than best practices and simplicty. *HOWEVER* if you connect a VPN before Tor, Wireguard UDP doesn't mesh with Tor's TCP. You'll need to resort to TCP on openvpn.    
+- https://github.com/hkbakke/qubes-wireguard/   (Wireguard)   
+- https://github.com/tasket/Qubes-vpn-support   (openvpn)   
+- IVPN.net , and *read their docs*. Pay with Monero.   
+
+If you connect a VPN before Tor, just be careful that you're entrance node is not geographically close to your VPN server. Read the Whonix documentation to better understand the risks of doing this. 
+
+We're now going to make 2 templates for daily driving activities. One Fedora, one Debian.   
+
+**FEDORA**    
+- Clone the default and name it:  fed-36-full (or whatever fedora-XY is latest)    
+- This will be Gnome/GTK only. Do *NOT* install Qt apps!    
+- [Enable rpmfusion](https://www.qubes-os.org/doc/how-to-install-software/). Cheat sheet below:  
+```
+sudo dnf config-manager --set-enabled rpmfusion-free
+sudo dnf config-manager --set-enabled rpmfusion-free-updates
+sudo dnf config-manager --set-enabled rpmfusion-nonfree
+sudo dnf config-manager --set-enabled rpmfusion-nonfree-updates
+sudo dnf upgrade --refresh
+```
+- Packages I like   
+  - falkon ungoogled-chormium libreoffice hexchat vlc obs gwenview transmission 
+
+**DEBIAN**
+- Clone the default and name it:  deb-11-full (Or whatever debian-XY is latest)
+- This will be KDE/Qt only. WE WILL REMOVE EVERYTHING GNOME
+  - `sudo apt-get remove gnome`	  
 - Install the full KDE desktop suite, instead    
-   - `sudo aptitude install ~t^desktop$ ~t^kde-desktop$`     
-   - `sudo apt-get install gnome-icon-theme`    
-- Add all your personal extra pkgs
-   - Consider using Falkon as your browser. Often superior to Firefox.
-
-\<RANT\> 
-FF is open source spyware, now funded primarily by google. Every new release has new default-on spyware settings that have to be manually turned off, buried in about:config. Check out ghacks user.js for help in hardening FF. Also, umatrix is a powerful addon. 
-\</RANT\>
-
-Colorcoding.  I prefer to colorcode based on a combination of purpose, security level, and anonymity of the VM in question. Gray for templates, red for system level VMs, black is secure offline VMs, green for publicly known identities, and purple for anon/Tor. 
-
-I also rename my disposable and Whonix VMs, as you will notice if you use i3gen setup.
-
-
-### VPN Qube Setup
-
-Wireguard is a superior VPN implementation, and now available in the Linux kernel.
-
-I recommend using this repo/guide for configuring VPN Qubes:    
-https://github.com/hkbakke/qubes-wireguard
-
-     
-### Quirks and Gotchas 
-
-Inside your i3wm config, remove `-d` options from `i3lock`   
-It's deprecated, and might've been causing screen freezes.
-
-Sometimes a pop-up window will be blank.  Toggling fullscreen usually fixes that
-
-**Screen Tearing:** After Qubes 4.1, you might see screen tearing on Intel graphics when typing in terminals or in Qube Manager. Create this file in dom0
-
 ```
-vi /etc/X11/xorg.conf.d/80-intelgraphics.conf
-
-Section "Device"
-	Identifier "Intel Graphics"
-	Driver "intel"
-	Option "TearFree" "true"
-EndSection
+sudo aptitude install ~t^desktop$ ~t^kde-desktop$
+sudo apt-get install gnome-icon-theme    
 ```
 
-**Touchpad:** I prefer to enable tapping (instead of click-pressing). Make persistent:   
+Now you can make 2 new DVM templates on the basis of your new "full" templates. Use these as your daily drivers. I typically prefer Fedora, and then stray over to Debian as necessary. Technically Whonix is debian so there's that too. 
+
+[Here's a way to run a Monero node in isolation from the wallet](https://www.whonix.org/wiki/Monero_Wallet_Isolation). It works for Bitcoin too with some light modificaiton. 
+
+\<RANT\> Firefox is probably not the best browser anymore. They make lots of calls back to Mozilla servers (Mozilla who is 95% funded by Google). Sandboxing and security features are well behind Chromium at this point. Sources:   
+  - https://madaidans-insecurities.github.io/firefox-chromium.html
+  - https://grapheneos.org/usage#web-browsing
+
+For this reason, I think ungoogled-chormium is worth a shot. They've kept up over the years. The one major benefit of Firefox still, is that it's very customizable. That still doesn't fix being behind in security in other areas, but at least it's something. \</RANT\>   
+
+At any rate install these addons to your browser:
+  - ublock
+  - decentraleyes
+  - And disable various types of fingerprinting in the settings
+
+
+### i3wm - Not recommended anymore until Qubes fixes the integration. 
+
+A tiling wm like i3, with loads of defined quick keys really *was* the most ideal way to navigate Qubes. Sadly, [Qubes now regularly hard freezes with i3](https://github.com/QubesOS/qubes-issues/issues/7902) and forced me to go back to xfce.
+
+I hope to one day re-write this section again. As much as I appreciate the free code Qubes has given us, the reality is that Qubes does suffer from ticks and glitches. Price of security I guess. 
+### Quirks and Gotchas - Only for i3wm, otherwise ignore
+
+**Touchpad:** This is only for i3wm. 
 
 ```
 vi /usr/share/X11/xorg.conf.d/60-libinput.conf
@@ -97,9 +95,3 @@ toggling if you're doing a backup/restore, or copying large amounts of data.
 `xset -dpms`     
 `xset dpms x y z`  , where x y z are the time in minutes for: standby suspend shutdown
 
-
-### xscreenshot
-
-This script takes a screenshot *from within a running VM*. It waits for the next mouse click on a window inside the VM, and saves to the home directory.  Copy the script to your template VM and place in /usr/bin/ 
-
-Tip: use in conjunction with fullscreen to get better captures.
