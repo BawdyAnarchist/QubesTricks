@@ -12,7 +12,7 @@
   -- Installs: libreoffice librewolf ungoogled-chromium transmission git
 
 #### Open a terminal and run the following line in whatever VM you're currently in:
-`_url='https://raw.githubusercontent.com/BawdyAnarchist/QubesTricks/master/QubesTricks_Install.sh' ; command -v whonix > /dev/null && _cmd='scurl-download' || _cmd='curl' ; eval $_cmd -o ~/Downloads/QubesTricks_Install.sh $_url` 
+`_url='https://raw.githubusercontent.com/BawdyAnarchist/QubesTricks/refs/heads/master/AutoInstall/QubesTricks_Install.sh' ; command -v whonix > /dev/null && _cmd='scurl-download' || _cmd='curl' ; eval $_cmd -o ~/Downloads/QubesTricks_Install.sh $_url` 
 
 #### Run the 3 commands below in a dom0 terminal, substituting your own {NAME_OF_VM}
 `qvm-run -p {NAME_OF_VM} 'cat /home/user/Downloads/QubesTricks_Install.sh' > ~/QubesTricks_Install.sh`
