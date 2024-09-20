@@ -1,10 +1,8 @@
 #!/bin/bash
 
-## Selects terminal to launch in VM, choosing the first one it finds in the order listed here.
-## Basically lifted off of the qubes-i3-sensible-terminal binary
+# Launches terminal in the VM ($1) based on the order below
 
-run_terminal='
-for t in "$TERMINAL" gnome-terminal xfce4-terminal konsole x-terminal-emulator xterm urxvt rxvt termit terminator Eterm aterm roxterm xfce4-terminal termite lxterminal mate-terminal terminology st ; do
+run_terminal='for t in "$TERMINAL" gnome-terminal xfce4-terminal konsole x-terminal-emulator xterm urxvt rxvt termit terminator Eterm aterm roxterm xfce4-terminal termite lxterminal mate-terminal terminology st ; do
     command -v "$t" > /dev/null 2>&1 && exec "$t";
 done
 '

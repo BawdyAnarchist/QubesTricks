@@ -1,7 +1,7 @@
 #!/bin/bash
 
-## Selects file manager application, preference in order listed here
+# Launches file manager in the VM ($1) based on the order below
 
-run_filemgr='for f in nautilus dolphin; do command -v "$f" > /dev/null 2>&1 && exec "$f"; done'
+run_filemgr='for f in nautilus dolphin thunar; do command -v "$f" > /dev/null 2>&1 && exec "$f"; done'
 
 qvm-run -q "$1" "bash -c '$run_filemgr'" &disown

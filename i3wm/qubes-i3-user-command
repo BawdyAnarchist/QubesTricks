@@ -1,18 +1,17 @@
 #!/bin/bash
 
-## Opens an xterm in the selected VM, executes arbitrary command, exits
-## Similary to the 'Run Command in Qube' option in Qube Manager
+# Takes an arbitrary user input command in a popup window, and executes in the VM ($1)
 
 unset PROMPT_COMMAND
 
-[ -e /home/user/.deletez ] && rm /home/user/.deletez
+# TEMP FILE NEEDED TO RECORD THE COMMAND
+	_temp=$(mktemp -t i3_user_cmd.XXX)
+	trap "rm $_temp" EXIT HUP TERM INT QUIT
 
-xterm -fa true -fs 11 -T "Run_command_in $1" -e bash -c \
-	'i3-msg -q floating enable, move position center ; read -p "Enter Command:~$ " m ; echo "$m" > /home/user/.deletez ; exit ;'
+# POPUP TO RECEIVE THE COMMAND FROM THE USER
+	xterm -fa true -fs 14 -T "Run_command_in $1" -e bash -c \
+	"i3-msg -q floating enable, move position center ; read -p 'Enter Command:~$ ' _cmd ; echo \$_cmd > $_temp ; exit ;"
 
-user_command=$(cat /home/user/.deletez)
-
-qvm-run -q "$1" "bash -c '$user_command'" &disown
-
-rm /home/user/.deletez 
-
+# RUN THE COMMAND 
+	_user_command=$(cat $_temp) 
+	qvm-run -q "$1" "bash -c '$_user_command'" &disown
