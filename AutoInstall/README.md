@@ -1,4 +1,4 @@
-*QubesTricks_Install.sh* automates my basic personal setup. I run it anytime I do a new install. It is basically the script-ified version of my recommendations in this repo.
+*QubesTricks_Install.sh* automates my basic personal setup. I run it on all new installs. It's the script-ified version of my recommendations in this repo.
 
 **Important security note**:  You should always be careful about transfering files dom0, and especially executing scripts (which is what these instructions will do). It's a straightforward script, but it never hurts to review it yourself. It will:
 - Install i3 to dom0
