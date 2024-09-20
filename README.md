@@ -1,8 +1,19 @@
-Welcome to my repo for some useful scripts and personal notes on Qubes. 
+### I3WM INTEGRATION AND USEFUL SCRIPTS:
+- Auto generate keybindings for all possible VM/command pairs with a simple config file
+- Sample xorg.conf and instructions for multiple monitor setup with i3wm
+- Keybindings to launch terminal, file manager, or run arbitrary command inside VMs
 
-Start with the Qubes directory for some ideas on system configuration, tips, and a couple scripts. 
+d-menu is a nice backup but you'll run circles around it with these automated keybindings 
 
-If you're taking the time to learn/run Qubes, you'll be well served by running i3wm instead of xfce. The workflow is better/faster, and it just makes sense, given the multiple VMs you're dealing with.    
-- There's a script for auto-generating key bindings for all possible VM/command pairs     
-- Whether new to Qubes+i3, or a veteran, this script is a timesaver   
-   - If you're a *"thank god for the d-menu"* kind of person, you definitely need these scripts.
+### NON-i3 SCRIPTS, SAMPLE FILES, AND CONFIGS
+- Script that screenshots a window from *inside* a VM and saves inside the VM
+- Script to quickly change DPI inside VMs (basically changes the zoom of windows in a VM). 
+- Recommendations on configurations. Fedora repos, browsers config, VPNs, odds and ends
+
+### AUTOMATIC INSTALL
+[Instructions for running the install script in dom0](https://github.com/BawdyAnarchist/QubesTricks/AutoInstall)
+
+#### MANUAL INSTALL
+It's a good bit of work but at least you can pick and choose.
+[i3wm Files and Configs](https://github.com/BawdyAnarchist/QubesTricks/i3wm)
+[General Notes and Configs](https://github.com/BawdyAnarchist/QubesTricks/QubesSetup)
