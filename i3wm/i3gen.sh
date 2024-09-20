@@ -1,9 +1,10 @@
 #!/bin/bash
 
 config='/home/user/.config/i3/config'
-vmlist=$(sed '/END OF VM LIST/, $d' i3gen.conf | sed '/^$/d' | grep -v "#")
-dom0_commands=$(sed '1,/END OF VM LIST/d' i3gen.conf | sed '/^$/d' | grep -v "#")
-qubeselect=$(grep -oe '^bindsym [^(\s|\t)]* mode "VM-Select"' i3gen.conf)
+genconf='/home/user/.config/i3/i3gen.conf'
+vmlist=$(sed '/END OF VM LIST/, $d' $genconf | sed '/^$/d' | grep -v "#")
+dom0_commands=$(sed '1,/END OF VM LIST/d' $genconf | sed '/^$/d' | grep -v "#")
+qubeselect=$(grep -oe '^bindsym [^(\s|\t)]* mode "VM-Select"' $genconf)
 wc=$(echo "$vmlist" | wc -l)
 
 initialize_config() {
@@ -83,8 +84,7 @@ vmgen() {
 			passed_command=$(grep -P "^${p} " <<<"$dom0_commands" \
 					| sed 's,^[^( |\t)]*[ |\t]*[^( |\t)]*[ |\t]*,,' | sed "s,\$vm,${vm},")
 			if [ -n "$sym" ]; then	
-				printf "%b" "\n\t bindsym $sym exec $passed_command , mode \"default\"" \
-															>> "$config"; else
+				printf "%b" "\n\t bindsym $sym exec $passed_command , mode \"default\""  >> "$config"; else
 				printf "%b" "\n\t\t## COMMAND \"$p\" NOT FOUND IN i3gen.conf"  >> "$config"
 			fi
 		done
