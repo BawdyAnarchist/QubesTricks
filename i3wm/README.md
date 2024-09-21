@@ -1,6 +1,6 @@
 ### i3gen.conf 
 Copy to dom0:  */home/user/.config/i3/i3gen.conf*<br>
-Qubes+i3 is a great combo, but you quickly run out of key bindings with numerous VM/command pairs. This automates creation of i3 modes and keybindings to:
+Qubes+i3 is a great combo, but you quickly run out of key bindings with numerous VM/command pairs. This automates creation of i3 keybindings/modes, so that you can operate Qubes completely from the keyboard.
 - Start/stop any qube
 - Open terminal or file manager in any qube
 - Launch disposable VM based on any qube
