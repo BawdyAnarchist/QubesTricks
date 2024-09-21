@@ -1,7 +1,6 @@
 #!/bin/sh
 
-# Copy this script to the template VMs, under /usr/bin
-# Remember to make it executable 
+# Copy this script to the template qubes at /usr/bin/ ; and make it executable
 
 while getopts hl o ; do
 	case $o in
@@ -49,11 +48,9 @@ getdpi() {
 	fi
 }
 
-
 modify_dpi() {
 	if [ -n "$os" ]; then
 		gsettings set org.gnome.desktop.interface text-scaling-factor $dpi
-
 	else
 		touch /home/user/.Xresources
 		
@@ -69,17 +66,14 @@ modify_dpi() {
 main() {
 	if [ -n "$help" ] ; then
 		usage
-
 	elif [ -n "$list" ] ; then
 		printf "%b" "\nCurrent setting is:  $dpi_current \n"
 		exit 0
-
 	elif [ -z "$dpi" ] ; then
 		getdpi
 	fi
 
 	modify_dpi
 }
-
 
 main
