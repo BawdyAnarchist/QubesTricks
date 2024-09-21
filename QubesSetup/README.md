@@ -1,21 +1,21 @@
 This file doubles as my setup recommendations and personal notes when installing Qubes.
 
 ### GENERAL NOTES
-Here's a copy of the PGP fingerprint for the Qubes Master Signing Key. Never hurts to ~~double~~ triple check it, from multiple devices over multiple networks on multiple websites.
-- `427F 11FD 0FAA 4B08 0123  F01C DDFA 1A3E 3687 9494`
+Here's a copy of the PGP fingerprint for the Qubes Master Signing Key. Never hurts to ~~double~~ triple check it, from multiple devices over multiple networks on multiple websites.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; `427F 11FD 0FAA 4B08 0123  F01C DDFA 1A3E 3687 9494`
 
 Always experiment inside a DVM for packages, setup, learning, *BEFORE* modifying a template.
 
-If you have a HiDPI screen, text/windows/titles can appear very small. Adjusting DPI can help
-- Settings Manager > Appearance > Fonts > Custom DPI setting
+If you have a HiDPI screen, text/windows/titles can appear very small. Adjusting DPI can help<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; `Settings Manager > Appearance > Fonts > Custom DPI setting`
 
-For i3wm DPI, edit ~/.Xresources  with the following line
-- `Xft.dpi: 96` and then in a terminal, run: `xrdb -merge .Xresources`
+For i3wm DPI, edit ~/.Xresources  with the following line<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; `Xft.dpi: 96` and then in a terminal, run: `xrdb -merge .Xresources`
 
 ### VPN
 Wireguard: https://github.com/hkbakke/qubes-wireguard/<br>
 OpenVPN: https://github.com/tasket/Qubes-vpn-support<br>
-&nbsp;&nbsp;&nbsp;*Wireguard is preferred for it's small codebase, simplicity, and best practices.*
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *Wireguard is preferred for it's small codebase, simplicity, and best practices.*
 
 There's a good case for connecting to a VPN before Tor. If you do:
 - Make sure your VPN server is not geographically co-located with your Tor entrance node.
