@@ -58,9 +58,10 @@ Firefox is opensource spyware that makes numerous calls to Mozilla (who is 95% f
 \</RANT\>   
 
 I recommend a tagteam strategy of librewolf and ungoogled-chromium. A few years ago these projects were still nascent, but have proven diligent over the years. If one is having trouble with a particular web page, try the other. Good addons: 
-  - ublock
-  - decentraleyes
-  - umatrix 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - ublock
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - decentraleyes
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - umatrix 
+
 
 ### ODDS AND ENDS
 DPMS Manages standby/suspend. You might want to toggle this on occasion<br>
