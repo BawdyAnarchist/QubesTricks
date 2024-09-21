@@ -61,7 +61,7 @@ check_dpi() {
 			;;
 		*GNOME*|*gnome*|*KDE*|*kde*)
 			if { echo "$dpi < 0.5" | bc | grep -qs 1 ;} || { echo "$dpi > 4" | bc | grep -qs 1 ;} ; then
-				echo "ERROR: DPI is outside of sane range (0.5-4) for xfce environment"
+				echo "ERROR: Scaling factor is outside of sane range (0.5-4)"
 			fi
 			;;
 	esac
@@ -76,7 +76,7 @@ modify_dpi() {
 			xrdb -merge /home/user/.Xresources
 			;;
 		*GNOME*|*gnome*) gsettings set org.gnome.desktop.interface text-scaling-factor $dpi ;;
-		*KDE*|*kde*) kwriteconfig5 --file kdeglobals --group KScreen --key ScaleFactor 1.5 ;;
+		*KDE*|*kde*) kwriteconfig5 --file kdeglobals --group KScreen --key ScaleFactor $dpi ;;
 	esac
 }
 
@@ -92,4 +92,3 @@ check_dpi
 
 # Modify DPI and exit
 modify_dpi
-
