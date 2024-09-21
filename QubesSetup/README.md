@@ -2,14 +2,14 @@ This file doubles as my setup recommendations and personal notes when installing
 
 ### GENERAL NOTES
 Here's a copy of the PGP fingerprint for the Qubes Master Signing Key. Never hurts to ~~double~~ triple check it, from multiple devices over multiple networks on multiple websites.<br>
--`427F 11FD 0FAA 4B08 0123  F01C DDFA 1A3E 3687 9494`
+- `427F 11FD 0FAA 4B08 0123  F01C DDFA 1A3E 3687 9494`
 
 Always experiment inside a DVM for packages, setup, learning, *BEFORE* modifying a template.
 
 If you have a HiDPI screen, text/windows/titles can appear very small. Adjusting DPI can help<br>
 -Settings Manager > Appearance > Fonts > Custom DPI setting<br>
 For i3wm DPI, edit ~/.Xresources  with the following line<br>
--`Xft.dpi: 96` and then in a terminal, run: `xrdb -merge .Xresources`
+- `Xft.dpi: 96` and then in a terminal, run: `xrdb -merge .Xresources`
 
 ### VPN
 Wireguard: https://github.com/hkbakke/qubes-wireguard/<br>
