@@ -2,10 +2,10 @@
 Copy to dom0:  */home/user/.config/i3/i3gen.conf*<br>
 Qubes+i3 is a great combo, but you quickly run out of key bindings with numerous VM/command pairs. This automates creation of i3 keybindings/modes, so that you can operate Qubes completely from the keyboard.
 - Start/stop any qube
+- Run common packages (defined by you) in any qube
 - Open terminal or file manager in any qube
 - Launch disposable VM based on any qube
 - Launch Popup to "Run command in qube"
-- Run common packages (defined by you) in any qube
 
 It might not sound like much, but you can do all these in < 1 sec, as opposed to GUI or d-menu.
 Edit the file, and instructions are inside. Relatively straighforward, and highly customizable.
@@ -26,4 +26,4 @@ Launches a terminal in the target VM.  It launches the first discovered terminal
 Launches file manager in the target VM.  It launches the first discovered file manager, in the order contained in the script's 'for loop'.
 
 #### qubes-i3-user-command
-Basically the same as `Run command in qube` , but a popup xterm window receives the command, then closes.
+Basically the same as `Run command in qube` from the QubeManager, but a popup xterm window receives the command, then closes.
