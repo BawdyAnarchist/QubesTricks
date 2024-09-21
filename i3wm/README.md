@@ -1,6 +1,3 @@
-### config_mods
-Extra workspaces, expanded key bindings, and a couple improvements (commented). Review and merge with your own config.
-
 ### i3gen.conf 
 Copy to dom0:  */home/user/.config/i3/i3gen.conf*<br>
 Qubes+i3 is a great combo, but you quickly run out of key bindings with numerous VM/command pairs. This automates creation of i3 modes and keybindings to:
@@ -12,6 +9,9 @@ Qubes+i3 is a great combo, but you quickly run out of key bindings with numerous
 
 It might not sound like much, but you can do all these in < 1 sec, as opposed to GUI or d-menu.
 Edit the file, and instructions are inside. Relatively straighforward, and highly customizable.
+
+### config_mods
+This file is intended to supplement your own i3 config. It has extra workspaces, expanded key bindings, and some improvements (commented). Review and merge with your own config.
 
 ### qubes-i3-scripts
 Copy scripts to to dom0 */usr/local/bin/* and make them executable `chmod +x`
