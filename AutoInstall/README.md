@@ -6,10 +6,10 @@
 - Transfer necessary files to dom0 (i3wm scripts, dpi and xscreenshot scripts, xorg.conf_sample)
 - Start Fedora, Debian, Whonix templates to tranfer dpi and xscreenshot scripts
 - Copy .bashrc to the templates' /root, for color coded terminal when root in a qube 
-- Creates a new template called fed-40-full ; adds repos ; installs programs
--- rpmfusion-free and nonfree
--- librewolf and ungoogled-chromium repos
--- Installs: libreoffice librewolf ungoogled-chromium transmission git
+- Creates a new template called fed-40-full , adds repos , installs programs
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - rpmfusion-free and nonfree
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - librewolf and ungoogled-chromium repos
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Installs: libreoffice librewolf ungoogled-chromium transmission git
 
 #### In whatever qube you're in - Open a terminal and run the following line:
 `_url='https://raw.githubusercontent.com/BawdyAnarchist/QubesTricks/refs/heads/master/AutoInstall/QubesTricks_Install.sh' ; command -v whonix > /dev/null && _cmd='scurl-download' || _cmd='curl' ; eval $_cmd -o ~/Downloads/QubesTricks_Install.sh $_url` 
