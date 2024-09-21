@@ -7,7 +7,7 @@ Here's a copy of the PGP fingerprint for the Qubes Master Signing Key. Never hur
 Always experiment inside a DVM for packages, setup, learning, *BEFORE* modifying a template.
 
 If you have a HiDPI screen, text/windows/titles can appear very small. Adjusting DPI can help<br>
--Settings Manager > Appearance > Fonts > Custom DPI setting<br>
+- Settings Manager > Appearance > Fonts > Custom DPI setting<br>
 For i3wm DPI, edit ~/.Xresources  with the following line<br>
 - `Xft.dpi: 96` and then in a terminal, run: `xrdb -merge .Xresources`
 
