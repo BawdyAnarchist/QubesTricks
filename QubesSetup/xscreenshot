@@ -1,7 +1,6 @@
 #!/bin/sh
 
 # Copy this script to the template qubes at /usr/bin/ ; and make it executable
-# User selects window, screenshot saved in home folder of the qube 
 
 wininfo=$(xwininfo)
 winID=$(echo "$wininfo" | grep "Window id" | sed 's/xwininfo: Window id: //' | sed 's/ .*//')
