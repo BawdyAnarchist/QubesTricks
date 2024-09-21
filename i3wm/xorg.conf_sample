@@ -1,0 +1,49 @@
+# Sample xorg.conf that implments multi-montor setup without xfce GUI
+# One trick you can do, is login to xfce, and use the GUI to arrange your monitors via drag/drop.
+# Use xrandr to note the Identifier, Position, PreferredMode, and Rotate. Plug them in here.
+
+Section "ServerLayout"
+	Identifier     "User Test Config"
+	Screen      0  "Screen0" 0 0
+	Option         "Xinerama" "0"
+EndSection
+
+Section "Files"
+	ModulePath   "/usr/lib64/xorg/modules"
+	FontPath     "catalogue:/etc/X11/fontpath.d"
+	FontPath     "built-ins"
+EndSection
+
+Section "Module"
+	Load  "glx"
+EndSection
+
+Section "Monitor"
+	Identifier "DP-1"
+	Option "Primary" "True"
+	Option "Position" "0 1440"
+	Option "PreferredMode" "3440x1440
+EndSection
+
+Section "Monitor"
+	Identifier "HDMI-1"
+	Option "PreferredMode" "2560x1440
+	Option "Position" "880 0"
+EndSection
+
+Section "Monitor"
+	Identifier "DP-2"
+	Option "PreferredMode" "1920x1080"
+	Option "Rotate" "Right"
+EndSection
+
+Section "Screen"
+	Identifier "Screen0"
+	Monitor    "DP-1"
+	Monitor    "DP-2"
+	Monitor    "HDMI-1"
+	SubSection "Display"
+		Depth     24
+	EndSubSection
+EndSection
+
