@@ -1,10 +1,8 @@
-Welcome to my repo for Qubes related setup ideas, configs, scripts, and links. 
-
-### Scripts, Config Recommendations, Sample Files
-- Screenshots a window from *inside* a qube and saves inside the qube.
+### Welcome to my Qubes repo for new installation config, commands, sample files, and useful scripts
+- Script that screenshots a window from *inside* a qube and saves inside the qube.
 - Quickly change DPI / scaling_factor inside qubes (changes the "total zoom"). 
-- Config recommendations on templates, repos, browsers, VPNs, odds and ends.
-- Use terminal commands so you dont have to look them up.
+- Config recommendations for templates, repos, browsers, VPNs, odds and ends.
+- Useful terminal commands so you dont have to look them up.
 
 ### i3wm Integration and Useful Scripts
 - Auto generate keybindings for all possible qubes/command pairs with a simple config file
