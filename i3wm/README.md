@@ -16,6 +16,10 @@ This file is intended to supplement your own i3 config. It has extra workspaces,
 ### Touchpad tap-to-click
 Copy 60-libinput.conf to dom0: */usr/share/X11/xorg.conf.d/60-libinput.conf*
 
+### xorg.conf_sample
+Copy to dom0: */etc/X11/xorg.conf*<br>
+You need to edit this file with your own monitor arrangement. Instructions inside the file.
+
 ### qubes-i3-scripts
 Copy scripts to to dom0 */usr/local/bin/* and make them executable `chmod +x`
 
