@@ -1,9 +1,7 @@
 #!/bin/sh
 
-# Copy this script to the template VMs under /usr/bin
-# Remember to make it executable
-
-# User selects window, screenshot saved in home folder of VM
+# Copy this script to the template qubes at /usr/bin/ ; and make it executable
+# User selects window, screenshot saved in home folder of the qube 
 
 wininfo=$(xwininfo)
 winID=$(echo "$wininfo" | grep "Window id" | sed 's/xwininfo: Window id: //' | sed 's/ .*//')
@@ -11,7 +9,6 @@ winNAME=$(echo "$wininfo" | grep "Window id" | sed 's/\"//g' | egrep -o '(\w+)$'
 count=1
 
 save=$(printf "%b" "/home/user/" "${winNAME}" "${count}.png") 
-
 
 ## Check if filename already exists. If so increment number until unique name found.
 while [ -e "$save" ]; do
