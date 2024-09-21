@@ -13,6 +13,9 @@ Edit the file, and instructions are inside. Relatively straighforward, and highl
 ### config_mods
 This file is intended to supplement your own i3 config. It has extra workspaces, expanded key bindings, and some improvements (commented). Review and merge with your own config.
 
+### Touchpad tap-to-click
+Copy 60-libinput.conf to dom0: */usr/share/X11/xorg.conf.d/60-libinput.conf*
+
 ### qubes-i3-scripts
 Copy scripts to to dom0 */usr/local/bin/* and make them executable `chmod +x`
 
