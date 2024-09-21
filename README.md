@@ -1,14 +1,14 @@
 Welcome to my repo for Qubes related setup ideas, configs, scripts, and links. 
 
 ### SCRIPTS, CONFIG RECOMMENDATIONS, SAMPLE FILES
-- Script that screenshots a window from *inside* a VM and saves inside the VM.
-- Script to quickly change DPI inside VMs (basically changes the zoom of windows in a VM). 
+- Script that screenshots a window from *inside* a qube and saves inside the qube.
+- Script to quickly change DPI inside qubes (DPI basically changes the "total zoom"). 
 - Config recommendations with terminal commands. repos, browsers, VPNs, odds and ends.
 
 ### I3WM INTEGRATION AND USEFUL SCRIPTS:
-- Auto generate keybindings for all possible VM/command pairs with a simple config file
+- Auto generate keybindings for all possible qubes/command pairs with a simple config file
 - Sample xorg.conf and instructions for multiple monitor setup with i3wm
-- Keybindings to launch terminal, file manager, or run arbitrary command inside VMs
+- Keybindings to launch terminal, file manager, or run arbitrary command inside qubes
 
 *d-menu is nice, but you'll run circles around it with these automated keybindings*
 
