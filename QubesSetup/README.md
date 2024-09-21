@@ -21,7 +21,8 @@ There's a good case for connecting to a VPN before Tor. If you do:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Make sure your VPN server is not geographically co-located with your Tor entrance node.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Use OpenVPN and select TCP, because Wireguard UDP doesnt work with Tor. 
 
-My preferred VPN is [IVPN](ivpn.net). They accept [Monero](getmonero.org), don't require an email, and have fantastic documentation regarding VPNs, Tor, and anonymity networks.
+My preferred VPN is [IVPN](ivpn.net). They accept [Monero](getmonero.org), don't require an email, and have fantastic documentation regarding VPNs, Tor, and anonymity networks.<br>
+[A guide for setting up IVPN app](https://forum.qubes-os.org/t/ivpn-app-4-2-setup-guide/23804/15) (Follow my comment, then scroll to the top for firewall configuration).
 
 ### FEDORA TEMPLATES
 Keep `fedora-XY-xfce` as an unmodified template and use it for all sys-qubes.<br>
