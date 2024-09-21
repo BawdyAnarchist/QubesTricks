@@ -2,24 +2,6 @@
 
 # Copy this script to the template qubes at /usr/bin/ ; and make it executable
 
-while getopts hl o ; do
-	case $o in
-		h) help="true" ;;
-		l) list="true" ;;
-	esac
-done
-
-dpi="$1"
-os=$(head -1 /etc/os-release | grep "edora")
-xresources=$(grep "Xft.dpi" /home/user/.Xresources)
-
-# If OS is Fedora based, use gsettings 
-if [ -n "$os" ] ; then
-	dpi_current=$(gsettings get org.gnome.desktop.interface text-scaling-factor)
-else
-	dpi_current=$(xrdb -query | grep "Xft.dpi" | sed "s/Xft.dpi:[[:blank:]]*//")
-fi
-
 usage() {
 	echo "dpi: Changes the dpi (or scaling factor) inside of a VM."
 	echo ""
@@ -28,52 +10,86 @@ usage() {
 	echo "   -l: (l)ist. Show the current DPI settings"
 	echo "   If <value> is not specified, user is prompted for input"
 	echo ""
-	echo "Fedora VMs use a text-scaling-factor between 0.5 and 3,"
-	echo "applied immediately to all windows."
-	echo ""
-	echo "Debian VMs use native .Xresources DPI, default of 96, and"
+	echo "Gnome and KDE use a text-scaling-factor between 0.5 and 3"
+	echo "XFCE uses native .Xresources DPI, default of 96, and"
 	echo "requires re-launching windows for changes to take effect"
-	exit 0
 }
 
-getdpi() {
-	if [ -n "$os" ] ; then 
-		printf "%b" "\nCurrent scaling factor is:  $dpi_current" \
+get_options() {
+	while getopts hl _opts ; do
+		case $_opts in
+			h) usage ; exit 0 ;;
+			l) echo "Current setting is:  $dpi_current" ; exit 0 ;;
+		esac
+	done
+}
+
+current_dpi() {
+	_de="$XDG_CURRENT_DESKTOP"
+	# Different commands for different DEs to change scaling 
+	case $_de in
+		*XFCE*|*xfce*)
+			dpi_current=$(xrdb -query | grep "Xft.dpi" | sed "s/Xft.dpi:[[:blank:]]*//")    ;;
+		*GNOME*|*gnome*)
+			dpi_current=$(gsettings get org.gnome.desktop.interface text-scaling-factor)    ;;
+		*KDE*|*kde*)
+			dpi_current=$(kreadconfig5 --file kdeglobals --group KScreen --key ScaleFactor) ;;
+	esac
+}
+
+get_dpi() {
+	case $_de in
+		*XFCE*|*xfce*)
+			printf "%b" "\nCurrent xrdb dpi is:  $dpi_current" \
+				"\nEnter New DPI (Recommend 96 - 288): "
+			read dpi
+		;;
+		*GNOME*|*gnome*|*KDE*|*kde*)
+			printf "%b" "\nCurrent scaling factor is:  $dpi_current" \
 				"\nEnter new scaling Factor (0.5 - 3.0): "
-		read dpi
-	else	
-		printf "%b" "\nCurrent xrdb dpi is:  $dpi_current" \
-				"\nEnter Scaling Factor (Recommend 96 - 288): "
-		read dpi
-	fi
+			read dpi
+		;;
+	esac
+}
+
+check_dpi() {
+	case $_de in
+		*XFCE*|*xfce*)
+			if [ "$dpi" -lt 48 ] || [ "$dpi" -gt 288 ] ; then
+				echo "ERROR: DPI is outside of sane range (48-288) for xfce environment"
+			fi	
+			;;
+		*GNOME*|*gnome*|*KDE*|*kde*)
+			if { echo "$dpi < 0.5" | bc | grep -qs 1 ;} || { echo "$dpi > 4" | bc | grep -qs 1 ;} ; then
+				echo "ERROR: DPI is outside of sane range (0.5-4) for xfce environment"
+			fi
+			;;
+	esac
 }
 
 modify_dpi() {
-	if [ -n "$os" ]; then
-		gsettings set org.gnome.desktop.interface text-scaling-factor $dpi
-	else
-		touch /home/user/.Xresources
-		
-		# If dpi line already exists, delete it
-		[ -n "$xresources" ] && sed -i "/Xft.dpi/ d" /home/user/.Xresources
-		echo "Xft.dpi:  $dpi" >> /home/user/.Xresources
-	
-		# Apply new settings
-		xrdb -merge /home/user/.Xresources
-	fi				
+	case $_de in
+		*XFCE*|*xfce*) # We delete all 'Xft.dpi' lines in case there are multiple (shouldnt be).
+			touch /home/user/.Xresources
+			sed -i "/Xft.dpi/ d" /home/user/.Xresources
+			echo "Xft.dpi:  $dpi" >> /home/user/.Xresources
+			xrdb -merge /home/user/.Xresources
+			;;
+		*GNOME*|*gnome*) gsettings set org.gnome.desktop.interface text-scaling-factor $dpi ;;
+		*KDE*|*kde*) kwriteconfig5 --file kdeglobals --group KScreen --key ScaleFactor 1.5 ;;
+	esac
 }
 
-main() {
-	if [ -n "$help" ] ; then
-		usage
-	elif [ -n "$list" ] ; then
-		printf "%b" "\nCurrent setting is:  $dpi_current \n"
-		exit 0
-	elif [ -z "$dpi" ] ; then
-		getdpi
-	fi
+dpi="$1"
+current_dpi
+get_options "@"
 
-	modify_dpi
-}
+# If user didnt pass DPI, they can enter it now
+[ -z "$dpi" ] && get_dpi
 
-main
+# Check that the DPI entered is sane
+check_dpi
+
+# Modify DPI and exit
+modify_dpi
+
