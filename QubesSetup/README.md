@@ -65,13 +65,13 @@ I recommend a tag team strategy of librewolf and ungoogled-chromium. A few years
 ### DISPOSABLE QUBES
 I prefer to have "named disposable" qubes for random browsing, experimentation, and one-time secure activities. This might imply an operation over Tor, connecting to various VPN servers, connecting with no anonimity network, or offline. I prefer this naming convention:<br>
 &nbsp;&nbsp;&nbsp;&nbsp; -dvm-fed-full (template for the following named-disposable VMs):<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Dispvm1  netvm VPN1<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Dispvm2  netvm VPN2<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Dispvm3  netvm sys-firewall<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Dispvm4  netvm offline<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -- Dispvm1  netvm VPN1<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -- Dispvm2  netvm VPN2<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -- Dispvm3  netvm sys-firewall<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -- Dispvm4  netvm offline<br>
 &nbsp;&nbsp;&nbsp; - dvm-whonix-&nbsp;ws (template for whonix, named-disposable VMs):<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -TorDVM<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -TorDVM2<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -- TorDVM<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -- TorDVM2<br>
 ```
 qvm-create --class AppVM -t {fed-full or whonix-ws} -l red --prop netvm='' --prop template_for_dispvms=True --prop memory=4000 --prop maxmem=8000 dvm-fed-full
 sudo qvm-volume resize {dvm-fed-full or dvm-whonix-ws}:private 50G
