@@ -22,7 +22,7 @@
 `sh ~/QubesTricks_Install.sh`
 
 #### AFTER INSTALL
-1. Edit */home/user/.config/i3/i3gen.conf* to define your qube/command pairs
+1. Edit `/home/user/.config/i3/i3gen.conf` to define your qube/command pairs
 2. Run the command: `i3gen.sh`
 3. Reload your i3 config 
 4. Add your additional desired packages to fed-40-full (stuff like vlc, gimp, gwenview, etc).
