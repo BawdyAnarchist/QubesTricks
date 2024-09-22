@@ -52,7 +52,6 @@ files_to_dom0() {
 
 	# BRING FILES FROM THE REPO INTO dom0
 	qvm-run -p anon-whonix "cat ${_qtdir}/QubesSetup/dpi"         > ${_qtdom0}/dpi 
-	qvm-run -p anon-whonix "cat ${_qtdir}/QubesSetup/xscreenshot" > ${_qtdom0}/xscreenshot 
 	qvm-run -p anon-whonix "cat ${_qti3}/i3gen.conf"              > ${_i3dom0}/i3gen.conf
 	qvm-run -p anon-whonix "cat ${_qti3}/config_mods"             > ${_i3dom0}/config_mods
 	qvm-run -p anon-whonix "cat ${_qti3}/qubes-i3-user-command"   > ${_qtdom0}/qubes-i3-user-command
@@ -87,9 +86,7 @@ templates_modification() {
 		echo -e "\nMODIFYING TEMPLATE: $_fed"
 		qvm-start --skip-if-running $_fed
 		qvm-run -p $_fed 'sudo cp /home/user/.bashrc /root/'
-		qvm-copy-to-vm $_fed ${_qtdom0}/xscreenshot
 		qvm-copy-to-vm $_fed ${_qtdom0}/dpi
-		qvm-run -p $_fed 'sudo mv /home/user/QubesIncoming/dom0/xscreenshot /usr/bin && sudo chmod +x /usr/bin/xscreenshot'
 		qvm-run -p $_fed 'sudo mv /home/user/QubesIncoming/dom0/dpi /usr/bin && sudo chmod +x /usr/bin/dpi'
 		qvm-shutdown --wait $_fed
 	else
@@ -101,9 +98,7 @@ templates_modification() {
 		echo "MODIFYING TEMPLATE: $_deb"
 		qvm-start --skip-if-running $_deb
 		qvm-run -p $_deb 'sudo cp /home/user/.bashrc /root/'
-		qvm-copy-to-vm $_deb ${_qtdom0}/xscreenshot
 		qvm-copy-to-vm $_deb ${_qtdom0}/dpi
-		qvm-run -p $_deb 'sudo mv /home/user/QubesIncoming/dom0/xscreenshot /usr/bin && sudo chmod +x /usr/bin/xscreenshot'
 		qvm-run -p $_deb 'sudo mv /home/user/QubesIncoming/dom0/dpi /usr/bin && sudo chmod +x /usr/bin/dpi'
 		qvm-shutdown $_deb
 	else
@@ -117,9 +112,7 @@ templates_modification() {
 		qvm-run -p $_whonix 'sudo cp /home/user/.bashrc.whonix /root/'
 		qvm-run -p $_whonix 'sudo rm /root/.bashrc'
 		qvm-run -p $_whonix 'sudo ln -s /root/.bashrc.whonix /root/.bashrc'
-		qvm-copy-to-vm $_whonix ${_qtdom0}/xscreenshot
 		qvm-copy-to-vm $_whonix ${_qtdom0}/dpi
-		qvm-run -p $_whonix 'sudo mv /home/user/QubesIncoming/dom0/xscreenshot /usr/bin && sudo chmod +x /usr/bin/xscreenshot'
 		qvm-run -p $_whonix 'sudo mv /home/user/QubesIncoming/dom0/dpi /usr/bin && sudo chmod +x /usr/bin/dpi'
 		qvm-shutdown $_whonix
 	else

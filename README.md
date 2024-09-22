@@ -1,5 +1,4 @@
 ### Welcome to my Qubes repo for new installation config, commands, sample files, and useful scripts
-- Script that screenshots a window from *inside* a qube and saves inside the qube.
 - Quickly change DPI / scaling_factor inside qubes (changes the "total zoom"). 
 - Config recommendations for templates, repos, browsers, VPNs, odds and ends.
 - Useful terminal commands so you dont have to look them up.
