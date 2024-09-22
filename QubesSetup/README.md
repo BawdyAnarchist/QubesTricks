@@ -75,8 +75,8 @@ I prefer to have "named disposable" qubes for random browsing, experimentation, 
 ```
 qvm-create --class AppVM -t {fed-full or whonix-ws} -l red --prop netvm='' --prop template_for_dispvms=True --prop memory=4000 --prop maxmem=8000 dvm-fed-full
 sudo qvm-volume resize {dvm-fed-full or dvm-whonix-ws}:private 50G
-	qvm-create --class DispVM -t dvm-fed-full -l orange "Dispvm${_num}" 
-	qvm-create --class DispVM -t dvm-whonix-ws -l purple --prop netvm='sys-whonix' "TorDVM"
+qvm-create --class DispVM -t dvm-fed-full -l orange "Dispvm${_num}" 
+qvm-create --class DispVM -t dvm-whonix-ws -l purple --prop netvm='sys-whonix' "TorDVM"
 ```
 
 ### ODDS AND ENDS
