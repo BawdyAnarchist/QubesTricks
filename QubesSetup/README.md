@@ -57,10 +57,10 @@ If you have problems with a GUI application, try changing to `deb-XY-full` and s
 Firefox is opensource spyware that makes numerous calls to Mozilla (who is 95% funded by Google) and regularly creates new default surveillance options buried in about:config that have to be disabled. Sandboxing and security features are behind Chromium. Its one redeeming feature is that it's still open source, and thus configurable. Sources:  https://madaidans-insecurities.github.io/firefox-chromium.html ..  https://grapheneos.org/usage#web-browsing<br>
 \</RANT\>   
 
-I recommend a tagteam strategy of librewolf and ungoogled-chromium. A few years ago these projects were still nascent, but have proven diligent over the years. If one is having trouble with a particular web page, try the other. Good addons: 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - ublock
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - decentraleyes
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - umatrix 
+I recommend a tagteam strategy of librewolf and ungoogled-chromium. A few years ago these projects were still nascent, but have proven diligent over the years. If one is having trouble with a particular web page, try the other. Good addons:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - ublock<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - decentraleyes<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - umatrix<br>
 
 
 ### ODDS AND ENDS
