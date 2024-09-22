@@ -48,6 +48,7 @@ files_to_dom0() {
 	# CREATE i3 DIRECTORY IN dom0
 	mkdir -p $_qtdom0 
 	mkdir -p $_i3dom0
+	mv /home/user/QubesTricks_Install.sh /home/user/QubesTricks
 
 	# BRING FILES FROM THE REPO INTO dom0
 	qvm-run -p anon-whonix "cat ${_qtdir}/QubesSetup/dpi"         > ${_qtdom0}/dpi 
@@ -58,8 +59,8 @@ files_to_dom0() {
 	qvm-run -p anon-whonix "cat ${_qti3}/qubes-i3-user-filemgr"   > ${_qtdom0}/qubes-i3-user-filemgr
 	qvm-run -p anon-whonix "cat ${_qti3}/qubes-i3-user-terminal"  > ${_qtdom0}/qubes-i3-user-terminal
 	qvm-run -p anon-whonix "cat ${_qti3}/i3gen.sh"                > ${_qtdom0}/i3gen.sh
-	qvm-run -p anon-whonix "cat ${_qtdir}/QubesSetup/60-libinput.conf" > ${_qtdom0}/60-libinput.conf
-	qvm-run -p anon-whonix "cat ${_qtdir}/QubesSetup/xorg.conf_sample" > ${_qtdom0}/xorg.conf_sample
+	qvm-run -p anon-whonix "cat ${_qti3}/QubesSetup/60-libinput.conf" > ${_qtdom0}/60-libinput.conf
+	qvm-run -p anon-whonix "cat ${_qti3}/QubesSetup/xorg.conf_sample" > ${_qtdom0}/xorg.conf_sample
 
 	# MUST MANUALLY MOVE FILES TO /usr/local/bin, COZ SUDO WITH qvm-run WONT WORK
 	sudo cp ${_qtdom0}/qubes-i3-user-command /usr/local/bin/
@@ -157,7 +158,7 @@ main() {
 	intro
 
 	# INSTALL i3wm
-	command -v i3 || sudo qubes-dom0-update -y i3 i3-settings-qubes
+	command -v i3 > /dev/null || sudo qubes-dom0-update -y i3 i3-settings-qubes
 
 	files_to_dom0
 	templates_modification
