@@ -13,19 +13,19 @@ set $ws20 "20"
 ####################  USER MODIFIED:  Additions/Changes for Qubes  ####################
 
 # Launch a dom0 terminal even when focus is on a VM
-bindsym $mod+Shift+Return exec xfce4-terminal
+bindsym $mod+Shift+Return exec --no-startup-id xfce4-terminal
 # Launch Qube Manager
-bindsym $mod+m exec qubes-qube-manager
+bindsym $mod+m exec --no-startup-id qubes-qube-manager
 # Lock screen. I dont know why this disappeared with later i3 versions in Qubes
-bindsym $mod+o exec "i3lock -e -f -c 000000"
+bindsym $mod+o exec --no-startup-id "i3lock -e -f -c 000000"
 # dom0 native screenshot tool
-bindsym $mod+Shift+S exec xfce4-screenshooter
+bindsym $mod+Shift+S exec --no-startup-id xfce4-screenshooter
 
 # I prefer to use the < > keys for volume
-bindsym $mod+comma exec pactl set-sink-volume 0 -10%
-bindsym $mod+Shift+comma exec pactl set-sink-volume 0 -50%
-bindsym $mod+period exec pactl set-sink-volume 0 +10%
-bindsym $mod+Shift+period exec pactl set-sink-volume 0 +50%
+bindsym $mod+comma exec --no-startup-id pactl set-sink-volume 0 -10%
+bindsym $mod+Shift+comma exec --no-startup-id pactl set-sink-volume 0 -50%
+bindsym $mod+period exec --no-startup-id pactl set-sink-volume 0 +10%
+bindsym $mod+Shift+period exec --no-startup-id pactl set-sink-volume 0 +50%
 
 for_window [floating] move position center 
 # Adjust your own minimum size based on your monitor resolution
@@ -51,14 +51,14 @@ mode "quickselect1" {
 	bindsym grave mode "quickselect2"
 
 	# Some examples of bindsyms that you might want
-        bindsym c exec qvm-run Corporate ungoogled-chromium , mode "default"
-        bindsym d exec qvm-run Dispvm1 librewolf , mode "default"
-        bindsym Shift+d exec qvm-run Dispvm2 librewolf , mode "default"
-        bindsym e exec qvm-run Email thunderbird , mode "default"
-        bindsym k exec qvm-run Vault keepassxc , mode "default"
-        bindsym p exec qvm-run Personal thunar , mode "default"
-        bindsym s exec qvm-run Social librewolf , mode "default"
-        bindsym t exec qvm-run TorDVM torbrowser, mode "default"
+        bindsym c exec --no-startup-id qvm-run Corporate ungoogled-chromium , mode "default"
+        bindsym d exec --no-startup-id qvm-run Dispvm1 librewolf , mode "default"
+        bindsym Shift+d exec --no-startup-id qvm-run Dispvm2 librewolf , mode "default"
+        bindsym e exec --no-startup-id qvm-run Email thunderbird , mode "default"
+        bindsym k exec --no-startup-id qvm-run Vault keepassxc , mode "default"
+        bindsym p exec --no-startup-id qvm-run Personal thunar , mode "default"
+        bindsym s exec --no-startup-id qvm-run Social librewolf , mode "default"
+        bindsym t exec --no-startup-id qvm-run TorDVM torbrowser, mode "default"
 
 	# Conventient for single hand switching workspaces
 	# Once you press $mod+grave , a single numeric press will switch workspace
