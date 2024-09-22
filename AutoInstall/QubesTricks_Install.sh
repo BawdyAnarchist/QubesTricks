@@ -58,7 +58,6 @@ files_to_dom0() {
 	qvm-run -p anon-whonix "cat ${_qti3}/qubes-i3-user-filemgr"   > ${_qtdom0}/qubes-i3-user-filemgr
 	qvm-run -p anon-whonix "cat ${_qti3}/qubes-i3-user-terminal"  > ${_qtdom0}/qubes-i3-user-terminal
 	qvm-run -p anon-whonix "cat ${_qti3}/i3gen.sh"                > ${_qtdom0}/i3gen.sh
-	qvm-run -p anon-whonix "cat ${_qtdir}/QubesSetup/README"      > ${_qtdom0}/README
 	qvm-run -p anon-whonix "cat ${_qtdir}/QubesSetup/60-libinput.conf" > ${_qtdom0}/60-libinput.conf
 	qvm-run -p anon-whonix "cat ${_qtdir}/QubesSetup/xorg.conf_sample" > ${_qtdom0}/xorg.conf_sample
 
