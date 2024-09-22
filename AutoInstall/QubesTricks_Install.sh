@@ -48,7 +48,7 @@ files_to_dom0() {
 	# CREATE i3 DIRECTORY IN dom0
 	mkdir -p $_qtdom0 
 	mkdir -p $_i3dom0
-	mv /home/user/QubesTricks_Install.sh /home/user/QubesTricks
+	mv /home/user/QubesTricks_Install.sh ${_qtdom0}
 
 	# BRING FILES FROM THE REPO INTO dom0
 	qvm-run -p anon-whonix "cat ${_qtdir}/QubesSetup/dpi"         > ${_qtdom0}/dpi 
