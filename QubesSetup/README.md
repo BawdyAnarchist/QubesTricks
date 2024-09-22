@@ -62,6 +62,22 @@ I recommend a tag team strategy of librewolf and ungoogled-chromium. A few years
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - decentraleyes<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - umatrix<br>
 
+### DISPOSABLE QUBES
+I prefer to have "named disposable" qubes for random browsing, experimentation, and one-time secure activities. This might imply an operation over Tor, connecting to various VPN servers, connecting with no anonimity network, or offline. I prefer this naming convention:<br>
+&nbsp;&nbsp;&nbsp; dvm-fed-full (template for the following named-disposable VMs):
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Dispvm1  __  netvm=vpn1
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Dispvm2  __  netvm=vpn2
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Dispvm3  __  netvm=sys-firewall
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Dispvm4  __  netvm=None
+&nbsp;&nbsp;&nbsp; dvm-whonix-ws (template for whonix, named-disposable VMs):
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -TorDVM
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -TorDVM2
+```
+qvm-create --class AppVM -t {fed-full or whonix-ws} -l red --prop netvm='' --prop template_for_dispvms=True --prop memory=4000 --prop maxmem=8000 dvm-fed-full
+sudo qvm-volume resize {dvm-fed-full or dvm-whonix-ws}:private 50G
+	qvm-create --class DispVM -t dvm-fed-full -l orange "Dispvm${_num}" 
+	qvm-create --class DispVM -t dvm-whonix-ws -l purple --prop netvm='sys-whonix' "TorDVM"
+```
 
 ### ODDS AND ENDS
 DPMS Manages standby/suspend. You might want to toggle this on occasion<br>

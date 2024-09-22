@@ -4,6 +4,7 @@
 - Install i3 to dom0 (if not already installed).
 - Start anon-whonix and clone this repo there
 - Transfer scripts and sample config files to dom0
+- Creates named_disposable qubes: Dispvm1 to Disvpm4 and TorDVM / TorDVM2
 - Start Fedora Debian Whonix templates; transfer dpi script; copy ~/.bashrc to /root for color coded terminal
 - Creates a new template called fed-40-full , adds repos , installs programs<br>
 &nbsp;&nbsp;&nbsp;&nbsp; - rpmfusion-free and nonfree<br>
@@ -25,4 +26,5 @@
 2. Run the command: `i3gen.sh` and then reload i3 to take effect.
 3. Add your packages to fed-40-full (stuff like vlc, gimp, gwenview, etc).
 4. Change your qube templates to fed-40-full (but leave the sys-qubes on fedora-40-xfce)
-5. If you need multiple monitors, edit `/home/user/.config/QubesTricks/xorg.conf_sample` in dom0
+5. Change Dispvm1-4 netvms. I like to have one offline, one sys-firewall, and then VPNs.
+6. If you need multiple monitors, edit `/home/user/.config/QubesTricks/xorg.conf_sample` in dom0

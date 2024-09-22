@@ -48,18 +48,19 @@ files_to_dom0() {
 	# CREATE i3 DIRECTORY IN dom0
 	mkdir -p $_qtdom0 
 	mkdir -p $_i3dom0
-	mv /home/user/QubesTricks_Install.sh ${_qtdom0}
+	mv /home/user/QubesTricks_Install.sh ${_qtdom0}/QubesTricks_Install.sh
 
 	# BRING FILES FROM THE REPO INTO dom0
 	qvm-run -p anon-whonix "cat ${_qtdir}/QubesSetup/dpi"         > ${_qtdom0}/dpi 
+	qvm-run -p anon-whonix "cat ${_qtdir}/QubesSetup/xscreenshot" > ${_qtdom0}/xscreenshot 
 	qvm-run -p anon-whonix "cat ${_qti3}/i3gen.conf"              > ${_i3dom0}/i3gen.conf
 	qvm-run -p anon-whonix "cat ${_qti3}/config_mods"             > ${_i3dom0}/config_mods
 	qvm-run -p anon-whonix "cat ${_qti3}/qubes-i3-user-command"   > ${_qtdom0}/qubes-i3-user-command
 	qvm-run -p anon-whonix "cat ${_qti3}/qubes-i3-user-filemgr"   > ${_qtdom0}/qubes-i3-user-filemgr
 	qvm-run -p anon-whonix "cat ${_qti3}/qubes-i3-user-terminal"  > ${_qtdom0}/qubes-i3-user-terminal
 	qvm-run -p anon-whonix "cat ${_qti3}/i3gen.sh"                > ${_qtdom0}/i3gen.sh
-	qvm-run -p anon-whonix "cat ${_qti3}/QubesSetup/60-libinput.conf" > ${_qtdom0}/60-libinput.conf
-	qvm-run -p anon-whonix "cat ${_qti3}/QubesSetup/xorg.conf_sample" > ${_qtdom0}/xorg.conf_sample
+	qvm-run -p anon-whonix "cat ${_qtdir}/QubesSetup/60-libinput.conf" > ${_qtdom0}/60-libinput.conf
+	qvm-run -p anon-whonix "cat ${_qtdir}/QubesSetup/xorg.conf_sample" > ${_qtdom0}/xorg.conf_sample
 
 	# MUST MANUALLY MOVE FILES TO /usr/local/bin, COZ SUDO WITH qvm-run WONT WORK
 	sudo cp ${_qtdom0}/qubes-i3-user-command /usr/local/bin/
@@ -80,13 +81,36 @@ files_to_dom0() {
 		&& echo "   RELOAD i3 TO TAKE EFFECT" 
 }
 
+create_dispvms() {
+	# Create disposable template for fed-full. Note that the volume size isnt a problem since it's for dispvms
+	qvm-create --class AppVM -t $_fedfull -l red --prop netvm='' --prop template_for_dispvms=True \
+		--prop memory=4000 --prop maxmem=8000 dvm-fed-full
+	sudo qvm-volume resize dvm-fed-full:private 50G
+
+	# Create disposable template for whonix-ws 
+	qvm-create --class AppVM -t $_whonix -l red --prop netvm='' --prop template_for_dispvms=True \
+		--prop memory=4000 --prop maxmem=8000 dvm-whonix-ws
+	sudo qvm-volume resize dvm-fed-full:private 50G
+
+	# Create clearnet Dispvm 1 to 4
+	for _num in 1 2 3 4 ; do
+		qvm-create --class DispVM -t dvm-fed-full -l orange "Dispvm${_num}" 
+	done
+	
+	# Create whonix TorDVMs 
+	qvm-create --class DispVM -t dvm-whonix-ws -l purple --prop netvm='sys-whonix' "TorDVM"
+	qvm-create --class DispVM -t dvm-whonix-ws -l purple --prop netvm='sys-whonix' "TorDVM2"
+}
+
 templates_modification() {
 	# CHANGE FEDORA 
 	if qvm-ls $_fed > /dev/null 2>&1 ; then 
 		echo -e "\nMODIFYING TEMPLATE: $_fed"
 		qvm-start --skip-if-running $_fed
 		qvm-run -p $_fed 'sudo cp /home/user/.bashrc /root/'
+		qvm-copy-to-vm $_fed ${_qtdom0}/xscreenshot
 		qvm-copy-to-vm $_fed ${_qtdom0}/dpi
+		qvm-run -p $_fed 'sudo mv /home/user/QubesIncoming/dom0/xscreenshot /usr/bin && sudo chmod +x /usr/bin/xscreenshot'
 		qvm-run -p $_fed 'sudo mv /home/user/QubesIncoming/dom0/dpi /usr/bin && sudo chmod +x /usr/bin/dpi'
 		qvm-shutdown --wait $_fed
 	else
@@ -98,7 +122,9 @@ templates_modification() {
 		echo "MODIFYING TEMPLATE: $_deb"
 		qvm-start --skip-if-running $_deb
 		qvm-run -p $_deb 'sudo cp /home/user/.bashrc /root/'
+		qvm-copy-to-vm $_deb ${_qtdom0}/xscreenshot
 		qvm-copy-to-vm $_deb ${_qtdom0}/dpi
+		qvm-run -p $_deb 'sudo mv /home/user/QubesIncoming/dom0/xscreenshot /usr/bin && sudo chmod +x /usr/bin/xscreenshot'
 		qvm-run -p $_deb 'sudo mv /home/user/QubesIncoming/dom0/dpi /usr/bin && sudo chmod +x /usr/bin/dpi'
 		qvm-shutdown $_deb
 	else
@@ -112,7 +138,9 @@ templates_modification() {
 		qvm-run -p $_whonix 'sudo cp /home/user/.bashrc.whonix /root/'
 		qvm-run -p $_whonix 'sudo rm /root/.bashrc'
 		qvm-run -p $_whonix 'sudo ln -s /root/.bashrc.whonix /root/.bashrc'
+		qvm-copy-to-vm $_whonix ${_qtdom0}/xscreenshot
 		qvm-copy-to-vm $_whonix ${_qtdom0}/dpi
+		qvm-run -p $_whonix 'sudo mv /home/user/QubesIncoming/dom0/xscreenshot /usr/bin && sudo chmod +x /usr/bin/xscreenshot'
 		qvm-run -p $_whonix 'sudo mv /home/user/QubesIncoming/dom0/dpi /usr/bin && sudo chmod +x /usr/bin/dpi'
 		qvm-shutdown $_whonix
 	else
@@ -151,9 +179,10 @@ main() {
 	intro
 
 	# INSTALL i3wm
-	command -v i3 > /dev/null || sudo qubes-dom0-update -y i3 i3-settings-qubes
+	command -v i3 || sudo qubes-dom0-update -y i3 i3-settings-qubes
 
 	files_to_dom0
+	create_dispvms
 	templates_modification
 	create_fedfull
 
