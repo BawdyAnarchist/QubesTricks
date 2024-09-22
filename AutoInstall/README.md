@@ -27,3 +27,4 @@
 3. Reload your i3 config 
 4. Add your additional desired packages to fed-40-full (stuff like vlc, gimp, gwenview, etc).
 5. Change your qube templates to fed-40-full (but leave the sys-qubes on fedora-40-xfce)
+6. If you need multiple monitors, edit `/home/user/.config/QubesTricks/xorg.conf_sample` in dom0

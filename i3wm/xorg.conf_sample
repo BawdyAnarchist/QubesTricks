@@ -1,6 +1,11 @@
-# Sample xorg.conf that implments multi-montor setup without xfce GUI
+# Sample xorg.conf that implements multi-montor setup without xfce GUI
 # One trick you can do, is login to xfce, and use the GUI to arrange your monitors via drag/drop.
 # Use xrandr to note the Identifier, Position, PreferredMode, and Rotate. Plug them in here.
+# You might also need to add lines like this in the i3 config:
+  # exec --no-startup-id xrandr --output DP-2 --right-of HDMI-1
+  # exec --no-startup-id xrandr --output DP-2 --pos3440x800
+
+## I'M NOT GONNA LIE, I3WM + MULTI MONITOR CONFIGURATION SEEMS BROKEN. EXPECT PAIN IN GETTING YOUR MONITORS SETUP 
 
 Section "ServerLayout"
 	Identifier     "User Test Config"
