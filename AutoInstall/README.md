@@ -4,7 +4,7 @@
 - Install i3 to dom0 (if not already installed).
 - Start anon-whonix and clone this repo there
 - Transfer scripts and sample config files to dom0
-- Start Fedora Debian Whonix templates, transfer dpi script and copy ~/.bashrc to /root (color coded terminal)
+- Start Fedora Debian Whonix templates; transfer dpi script; copy ~/.bashrc to /root for color coded terminal
 - Creates a new template called fed-40-full , adds repos , installs programs<br>
 &nbsp;&nbsp;&nbsp;&nbsp; - rpmfusion-free and nonfree<br>
 &nbsp;&nbsp;&nbsp;&nbsp; - librewolf and ungoogled-chromium repos<br>
