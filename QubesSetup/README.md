@@ -39,7 +39,7 @@ sudo dnf upgrade --refresh
 ```
 
 Packages I like<br>
-`sudo dnf install -y librewolf ungoogled-chormium libreoffice hexchat vlc obs gwenview transmission`
+`sudo dnf install -y librewolf ungoogled-chromium libreoffice hexchat vlc obs gwenview transmission`
 
 ### DEBIAN TEMPLATES
 Sometimes GUI packages are written natively in KDE/Qt, and dont present well on Gnome/GTK. We'll configure a Debian template with GTK removed, and KDE installed instead.<br>

@@ -59,8 +59,8 @@ files_to_dom0() {
 	qvm-run -p anon-whonix "cat ${_qti3}/qubes-i3-user-filemgr"   > ${_qtdom0}/qubes-i3-user-filemgr
 	qvm-run -p anon-whonix "cat ${_qti3}/qubes-i3-user-terminal"  > ${_qtdom0}/qubes-i3-user-terminal
 	qvm-run -p anon-whonix "cat ${_qti3}/i3gen.sh"                > ${_qtdom0}/i3gen.sh
+	qvm-run -p anon-whonix "cat ${_qti3}/QubesSetup/xorg.conf_sample" > ${_qtdom0}/xorg.conf_sample
 	qvm-run -p anon-whonix "cat ${_qtdir}/QubesSetup/60-libinput.conf" > ${_qtdom0}/60-libinput.conf
-	qvm-run -p anon-whonix "cat ${_qtdir}/QubesSetup/xorg.conf_sample" > ${_qtdom0}/xorg.conf_sample
 
 	# MUST MANUALLY MOVE FILES TO /usr/local/bin, COZ SUDO WITH qvm-run WONT WORK
 	sudo cp ${_qtdom0}/qubes-i3-user-command /usr/local/bin/
@@ -163,9 +163,10 @@ create_fedfull() {
 	qvm-run -p $_fedfull 'sudo dnf config-manager -y --set-enabled rpmfusion-nonfree-updates'
 	qvm-run -p $_fedfull 'sudo dnf config-manager -y --add-repo https://rpm.librewolf.net/librewolf-repo.repo' 
 	
-	# COPR CANNOT RESOLVE DNS IN THE TEMPLATE UNLESS CONNECTED TO A NETVM
+	# COPR AND CURL CANNOT RESOLVE DNS IN THE TEMPLATE UNLESS CONNECTED TO A NETVM
 	qvm-prefs $_fedfull netvm sys-firewall
 	qvm-run -p $_fedfull 'sudo dnf copr -y enable wojnilowicz/ungoogled-chromium'
+	qvm-run -p $_fedfull 'sudo fsSL https://repo.librewolf.net/librewolf.repo | pkexec tee /etc/yum.repos.d/librewolf.repo'
 	qvm-prefs $_fedfull netvm None
 
 	# UPDATE REPOS AND INSTALL PROGRAMS TO FED-FULL
